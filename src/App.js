@@ -1,18 +1,16 @@
 import { useState } from 'react';
 import { Component } from 'apprun/esm/component';
 
-const mount = (state, view, update) => new Component(state, view, update).mount();
-
 function App() {
 
-  const [state, setState] = useState(0);
+  const [state, view] = useState(0);
 
   const update = {
     '-1': state => state - 1,
     '+1': state => state + 1,
   }
 
-  const app = mount(state, setState, update);
+  const app = new Component(state, view, update).mount();
 
   return (
     <div>
@@ -21,7 +19,6 @@ function App() {
       <button onClick={() => app.run('+1')}>+1</button>
     </div>
   )
-
 }
 
 export default App;
