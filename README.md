@@ -6,7 +6,7 @@ Using AppRun and React in conjunction is one of the best ways to build a web app
 
 [AppRun](https://apprun.js.org/) is an elm-inspired event-driven library.
 
-It takes only three lines to use the [state management](https://apprun.js.org/docs/state-management/) and [event pub-sub](https://apprun.js.org/docs/event-pubsub) from AppRun in the React apps.
+It takes only three lines to use the [state management](https://apprun.js.org/docs/state-management/) and [event pub-sub](https://apprun.js.org/docs/event-pubsub) from AppRun in the React apps and make the React apps having the [elm-inspired architecture](https://apprun.js.org/docs/architecture).
 
 ![apprun-react](apprun-react.png)
 
@@ -31,23 +31,27 @@ Finally, we mount an invisible [AppRun Component](https://apprun.js.org/docs/com
 
 ```js
 import { useState } from 'react';
-import { Component } from 'apprun/esm/component'; // line #1
+import { Component } from 'apprun/esm/component';
 
-const mount = (state, view, update) => new Component(state, view, update).mount(); // line #2
+// initial state
+const model = 0;
+
+// rendering logic
+function view (state) {
+  return <div>{state}</div>;
+}
+
+// event handlers
+const update = {  }
+}
 
 function App() {
-
-  const [state, setState] = useState(0);
-
-  const update = { /* AppRun event handlers */}
-
-  const app = mount(state, setState, update); // line #3
-
-  return (
-      {/* redner logic: e.g. <h1>{state}</h1> */}
-  )
-
+  const [state, setState] = useState(model);
+  const [component] = useState(new Component(model, setState, update).mount());
+  return <>{view.bind(component)(state)}</>;
 }
+
+export default App;
 ```
 
 
