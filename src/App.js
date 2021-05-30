@@ -1,3 +1,4 @@
+import React from 'react';
 import { Component } from 'apprun/esm/component';
 import toReact from 'apprun/react';
 
