@@ -1,5 +1,6 @@
 import { Component } from 'apprun/esm/component';
-import toReact from './toReact';
+import toReact from 'apprun/react';
+
 class MyComponent extends Component {
   state = 0;
   update = {
@@ -13,7 +14,6 @@ class MyComponent extends Component {
       <button onClick={() => this.run('+1')}>+1</button>
     </div>;
   }
-
 }
 
 const App = toReact(MyComponent);

@@ -2,11 +2,11 @@
 
 Using AppRun and React in conjunction is one of the best ways to build a web app.
 
-[React](https://reactjs.org/) is a popular JavaScript library for building user interfaces.
+> [React](https://reactjs.org/) is a popular JavaScript library for building user interfaces.
 
-[AppRun](https://apprun.js.org/) is an elm-inspired event-driven library.
+> [AppRun](https://apprun.js.org/) is an elm-inspired event-driven library.
 
-It takes only three lines to use the [state management](https://apprun.js.org/docs/state-management/) and [event pub-sub](https://apprun.js.org/docs/event-pubsub) from AppRun in the React apps and make the React apps having the [elm-inspired architecture](https://apprun.js.org/docs/architecture).
+With just one line of code, we can convert AppRun components to React components. Thus, we have the [elm-inspired AppRun architecture](https://apprun.js.org/docs/architecture/) in the React apps.
 
 ![apprun-react](apprun-react.png)
 
@@ -27,32 +27,31 @@ Then, we add AppRun.
 npm install AppRun -D
 ```
 
-Finally, we mount an invisible [AppRun Component](https://apprun.js.org/docs/component/) inside a React Component.
+Then, we can create an [AppRun Component](https://apprun.js.org/docs/component/) and convert it to a React Component.
 
 ```js
-import { useState } from 'react';
 import { Component } from 'apprun/esm/component';
+import toReact from 'apprun/react';
 
-// initial state
-const model = 0;
-
-// rendering logic
-function view (state) {
-  return <div>{state}</div>;
+class MyComponent extends Component {
+  state = 0;
+  update = {
+    '-1': state => state - 1,
+    '+1': state => state + 1,
+  }
+  view = (state) => {
+    return <div>
+      <h1>{state}</h1>
+      <button onClick={() => this.run('-1')}>-1</button>
+      <button onClick={() => this.run('+1')}>+1</button>
+    </div>;
+  }
 }
 
-// event handlers
-const update = {  }
-}
-
-function App() {
-  const [state, setState] = useState(model);
-  const [component] = useState(new Component(model, setState, update).mount());
-  return <>{view.bind(component)(state)}</>;
-}
-
+const App = toReact(MyComponent);
 export default App;
 ```
 
+That's all and vave fun!
 
-Have fun!
+(C) 2021, Yiyi Sun

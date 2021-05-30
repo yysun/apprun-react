@@ -36,6 +36,6 @@
     ]
   },
   "devDependencies": {
-    "apprun": "^3.28.3"
+    "apprun": "^3.28.6"
   }
 }
